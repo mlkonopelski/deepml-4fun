@@ -15,9 +15,9 @@ def linear_regression_gradient_descent(X: np.ndarray, y: np.ndarray, alpha: floa
 
     for i in range(iterations):
         prediction = X @ theta
-        error = prediction.flatten() - y
-        gradient = alpha * error.dot(X) / m
-        theta -= np.expand_dims(gradient, axis=1)
+        error = prediction - y.reshape(-1, 1)
+        gradient = X.T @ error / m
+        theta -= alpha * gradient
 
         if i % 10 == 0:
             print(f'{i}: error: {error.sum().item()} theta: {theta.tolist()}')
