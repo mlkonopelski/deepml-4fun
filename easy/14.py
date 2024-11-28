@@ -16,8 +16,11 @@ import numpy as np
 def linear_regression_normal_equation(X: list[list[float]], y: list[float]) -> list[float]:
     # Forumla (XTX)-1 * (XTy)
     X_array = np.array(X)
+    X_array_T = X_array.T
     y_array = np.array(y)
-    theta = np.round(np.dot(np.linalg.inv(np.dot(X_array.T,  X_array)), (np.dot(X_array.T, y_array))), 4).tolist()
+    # theta = np.round(np.dot(np.linalg.inv(np.dot(X_array.T,  X_array)), (np.dot(X_array.T, y_array))), 4).tolist()
+    theta = np.linalg.inv(X_array_T.dot(X_array)).dot(X_array_T.dot(y_array))
+    theta = np.round(theta, 4).tolist()
     return theta
 
 if __name__ == '__main__':
